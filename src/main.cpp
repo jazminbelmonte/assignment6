@@ -7,7 +7,12 @@ using namespace std;
 
 int main(){
   LinearHashtable<int> lht(57);
+  lht.add(11);
+  lht.add(57);
+  lht.add(114);
+  lht.add(58);
 
+  cout << lht << endl;
   for(int i = 0; i < 50; i++){
     lht.add(1 + rand() % 100);
   }
@@ -20,7 +25,11 @@ int main(){
   cout << lht << endl;
 
   ChainedHashtable<int> ht(19);
-
+  ht.add(11);
+  ht.add(19);
+  ht.add(38);
+  ht.add(20);
+  cout << ht << endl;
   for(int i = 0; i < 50; i++){
     ht.add(1 + rand() % 100);
   }
