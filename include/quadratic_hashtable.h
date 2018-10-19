@@ -43,7 +43,7 @@ public:
       //TODO: change from linear probing to quadratic probing
       else {
           int i = 1;
-          while (!htable[(t + i) % capacity].empty) i += 2;
+          while (!htable[(t + i) % capacity].empty) i ++;
           htable[(t + (i*i)) % capacity] = {e, false};
       }
 
