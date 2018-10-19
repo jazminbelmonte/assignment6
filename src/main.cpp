@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "linear_hashtable.h"
 #include "chained_hashtable.h"
+#include "quadratic_hashtable.h"
 using namespace std;
 
 int main(){
@@ -44,3 +45,9 @@ int main(){
 
   return 0;
 }
+
+//attaching clock
+//auto start = high_resolution_clock::now();
+//auto end = high_resolution_clock::now();
+//duration<double> span = end - start;
+//cout << "It took " << span.count() << " seconds to run the collection code above." << endl;
