@@ -21,8 +21,8 @@ int main(){
 
   cout << lht.contains(17) << endl;
   cout << lht.contains(26) << endl;
-
   cout << lht.remove(4) << endl;
+
   cout << lht << endl;
 
   ChainedHashtable<int> ht(19);
@@ -39,8 +39,8 @@ int main(){
 
   cout << ht.contains(17) << endl;
   cout << ht.contains(26) << endl;
-
   cout << ht.remove(4) << endl;
+
   cout << ht << endl;
 
   return 0;
