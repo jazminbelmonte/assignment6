@@ -10,7 +10,7 @@
 
 
 template<typename T>
-struct Cell {
+struct QCell {
   T info;
   bool empty = true;
 };
@@ -18,7 +18,7 @@ struct Cell {
 template<typename T>
 class QuadraticHashtable {
 public:
-  QuadraticHashtable(int capacity = 499):  sz(0), capacity(capacity), htable(new Cell<T>[capacity]()){}
+  QuadraticHashtable(int capacity = 499):  sz(0), capacity(capacity), htable(new QCell<T>[capacity]()){}
 
   QuadraticHashtable(const QuadraticHashtable<T>& c) = delete;
   QuadraticHashtable<T>& operator=(const QuadraticHashtable<T>&& c) = delete;
@@ -40,10 +40,10 @@ public:
       if(htable[t].empty){
           htable[t] = { e, false};
       }
-      //TODO: change from linear probing to quadratic probing
+      //TODO: changed from linear probing to quadratic probing
       else {
           int i = 1;
-          while (!htable[(t + i) % capacity].empty) i ++;
+          while (!htable[(t + (i*i)) % capacity].empty) i++;
           htable[(t + (i*i)) % capacity] = {e, false};
       }
 
@@ -97,7 +97,7 @@ public:
   }
 protected:
   int sz, capacity;
-  Cell<T> *htable;
+  QCell<T> *htable;
 };
 
 #endif //_QUADRATIC_HASHTABLE_H_
