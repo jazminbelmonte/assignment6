@@ -9,32 +9,32 @@ int divideHF(T e, int capacity){
   return e % capacity;
 }
 
-template <typename T>
 //mid-square hash function
-int midSquareHF(T e) {
+template <typename T>
+int midSquareHF(T e, int capacity) {
    int x = e * e;
    std::string strx = std::to_string(x);
-   std::string mid = strx.substr(2, 2);
+   std::string mid = strx.substr(3, 4);
    int y = std::stoi(mid);
 
-   return y;
+   return y % capacity;
 }
 
-template <typename T>
 //folding hash function
-int foldingHF(T e) {
+template <typename T>
+int foldingHF(T e, int capacity) {
   std::string x = std::to_string(e);
   std::string first = x.substr(0, 2);
   std::string second = x.substr(2, 2);
   std::string third = x.substr(4, 2);
   int total = std::stoi(first) + std::stoi(second) + std::stoi(third);
 
-  return total;
+  return total % capacity;
 }
 
-template <typename T>
 //selecting-digits hash function
-int selectDgtHF(T e) {
+template <typename T>
+int selectDgtHF(T e, int capacity) {
   std::string key;
   std::string stre = std::to_string(e);
   std::stringstream sin;
@@ -43,7 +43,7 @@ int selectDgtHF(T e) {
   sin >> key;
   int y = std::stoi(key);
 
-  return y;
+  return y % capacity;
 }
 
 #endif
