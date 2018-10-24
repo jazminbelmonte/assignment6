@@ -11,7 +11,7 @@ int divideHF(T e, int capacity){
 }
 
 //mid-square hash function
-int midSquareHF(T e, int capacity) {
+int midSquareHF(int e) {
    int x = e * e;
    std::string strx = std::to_string(x);
    std::string mid = strx.substr(2, 2);
@@ -21,7 +21,7 @@ int midSquareHF(T e, int capacity) {
 }
 
 //folding hash function
-int foldingHF(T e, int capacity) {
+int foldingHF(int e) {
   std::string x = std::to_string(e);
   std::string first = x.substr(0, 2);
   std::string second = x.substr(2, 2);
@@ -32,7 +32,7 @@ int foldingHF(T e, int capacity) {
 }
 
 //selecting-digits hash function
-int selectDgtHF(T e, int capacity) {
+int selectDgtHF(int e) {
   std::string key;
   std::string stre = std::to_string(e);
   std::stringstream sin;
