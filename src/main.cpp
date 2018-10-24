@@ -7,7 +7,7 @@
 using namespace std;
 
 int main(){
-  LinearHashtable<int> lht(57);
+  /*LinearHashtable<int> lht(57);
   lht.add(11);
   lht.add(57);
   lht.add(114);
@@ -41,7 +41,15 @@ int main(){
   cout << ht.contains(26) << endl;
   cout << ht.remove(4) << endl;
 
-  cout << ht << endl;
+  cout << ht << endl;*/
+
+  QuadraticHashtable<int> qht(599);
+  qht.add(57);
+  qht.add(58);
+  qht.add(61);
+  qht.add(114);
+  cout << qht << endl;
+
 
   return 0;
 }
@@ -50,4 +58,9 @@ int main(){
 //auto start = high_resolution_clock::now();
 //auto end = high_resolution_clock::now();
 //duration<double> span = end - start;
-//cout << "It took " << span.count() << " seconds to run the collection code above." << endl;
+//cout << "It took " << span.count() << " seconds to run the x code above." << endl;
+
+
+//for (int i = 0; i < 250; i++){
+//std::cout << rand() % 1000000 << std::endl;
+//}

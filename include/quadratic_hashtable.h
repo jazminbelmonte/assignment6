@@ -18,83 +18,87 @@ struct QCell {
 template<typename T>
 class QuadraticHashtable {
 public:
-  QuadraticHashtable(int capacity = 499):  sz(0), capacity(capacity), htable(new QCell<T>[capacity]()){}
+  QuadraticHashtable(int capacity = 499) : sz(0), capacity(capacity), htable(new QCell<T>[capacity]()) {}
 
-  QuadraticHashtable(const QuadraticHashtable<T>& c) = delete;
-  QuadraticHashtable<T>& operator=(const QuadraticHashtable<T>&& c) = delete;
+  QuadraticHashtable(const QuadraticHashtable<T> &c) = delete;
 
-  friend std::ostream& operator<<(std::ostream& out, const QuadraticHashtable<T>& t){
-      for(int i = 1; i <= t.capacity; i++){
-          out << std::setw(5) << t.htable[i-1].info;
-          if(i % 12 == 0) out << std::endl;
-      }
+  QuadraticHashtable<T> &operator=(const QuadraticHashtable<T> &&c) = delete;
 
-      out << std::endl;
-      return out;
+  friend std::ostream &operator<<(std::ostream &out, const QuadraticHashtable<T> &t) {
+    for (int i = 1; i <= t.capacity; i++) {
+      out << std::setw(5) << t.htable[i - 1].info;
+      if (i % 12 == 0) out << std::endl;
+    }
+
+    out << std::endl;
+    return out;
   }
 
-  void add(T e){
-      if(full()) throw std::runtime_error("Table is full.");
+  void add(T e) {
+    if (full()) throw std::runtime_error("Table is full.");
 
-      int t = divideHF(e, capacity);
-      if(htable[t].empty){
-          htable[t] = { e, false};
-      }
-      //TODO: changed from linear probing to quadratic probing
-      else {
-          int i = 1;
-          while (!htable[(t + (i*i)) % capacity].empty) i++;
-          htable[(t + (i*i)) % capacity] = {e, false};
-      }
+    int t = divideHF(e, capacity);
+    if (htable[t].empty) {
+      htable[t] = {e, false};
+    }
+      //changed from linear probing to quadratic probing
+    else {
+      int i = 1;
+      while (!htable[(t + (i * i)) % capacity].empty) i++;
+      htable[(t + (i * i)) % capacity] = {e, false};
+    }
 
-      sz++;
+    sz++;
   }
 
-  bool remove(T e){
-      if(empty()) return false;
+  bool remove(T e) {
+    if (empty()) return false;
 
-      int t = divideHF(e, capacity);
-      if(htable[t].info == e){
+    int t = divideHF(e, capacity);
+    if (htable[t].info == e) {
+      htable[t].empty = true;
+      sz--;
+      return true;
+    } else {
+      int i = 1;
+      while (i < capacity) {
+        if (htable[(t + i) % capacity].info == e) {
           htable[t].empty = true;
           sz--;
           return true;
-      } else {
-          int i = 1;
-          while (i < capacity){
-              if(htable[(t + i) % capacity].info == e){
-                  htable[t].empty = true;
-                  sz--;
-                  return true;
-              }
+        }
 
-              i++;
-          }
-
-          return false;
+        i++;
       }
+
+      return false;
+    }
   }
 
-  bool	contains(T e) {
-      int t = divideHF(e, capacity);
-      if(htable[t].info == e){
-          return true;
-      } else {
-          int i = 1;
-          while (i < capacity){
-              if(htable[(t + i) % capacity].info == e) return true;
-              i++;
-          }
-          return false;
+  bool contains(T e) {
+    int t = divideHF(e, capacity);
+    if (htable[t].info == e) {
+      return true;
+    } else {
+      int i = 1;
+      while (i < capacity) {
+        if (htable[(t + i) % capacity].info == e) return true;
+        i++;
       }
+      return false;
+    }
   }
 
-  bool empty(){ return sz == 0; }
-  bool full(){ return sz == capacity; }
+  bool empty() { return sz == 0; }
+
+  bool full() { return sz == capacity; }
+
   int size() { return sz; }
 
-  ~QuadraticHashtable(){
-      delete[] htable;
+  ~QuadraticHashtable() {
+    delete[] htable;
   }
+
 protected:
   int sz, capacity;
   QCell<T> *htable;
