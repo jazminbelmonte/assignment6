@@ -5,13 +5,13 @@
 #include <sstream>
 
 template <typename T>
-
 int divideHF(T e, int capacity){
   return e % capacity;
 }
 
+template <typename T>
 //mid-square hash function
-int midSquareHF(int e) {
+int midSquareHF(T e) {
    int x = e * e;
    std::string strx = std::to_string(x);
    std::string mid = strx.substr(2, 2);
@@ -20,8 +20,9 @@ int midSquareHF(int e) {
    return y;
 }
 
+template <typename T>
 //folding hash function
-int foldingHF(int e) {
+int foldingHF(T e) {
   std::string x = std::to_string(e);
   std::string first = x.substr(0, 2);
   std::string second = x.substr(2, 2);
@@ -31,8 +32,9 @@ int foldingHF(int e) {
   return total;
 }
 
+template <typename T>
 //selecting-digits hash function
-int selectDgtHF(int e) {
+int selectDgtHF(T e) {
   std::string key;
   std::string stre = std::to_string(e);
   std::stringstream sin;
