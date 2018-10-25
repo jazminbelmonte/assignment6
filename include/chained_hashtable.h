@@ -90,6 +90,7 @@ public:
   ~ChainedHashtable(){
     delete[] htable;
   }
+
 protected:
   int sz, capacity;
   Node<T>** htable;
