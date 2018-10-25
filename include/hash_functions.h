@@ -34,14 +34,19 @@ int foldingHF(T e, int capacity) {
 
 //selecting-digits hash function
 template <typename T>
-int selectDgtHF(T e, int capacity) {
+int selectHF(T e, int capacity) {
   std::string key;
-  std::string stre = std::to_string(e);
+  std::string stre = std::to_string (e);
+
+  while (stre.length() < 6){
+    stre.append(std::to_string (rand() % 10));
+  }
+
   std::stringstream sin;
-  sin << stre.substr(1, 2);
-  sin << stre.substr(4, 1);
+  sin << stre.substr (1, 2);
+  sin << stre.substr (4, 1);
   sin >> key;
-  int y = std::stoi(key);
+  int y = std::stoi (key);
 
   return y % capacity;
 }
