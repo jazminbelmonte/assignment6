@@ -26,8 +26,8 @@ public:
 
   friend std::ostream &operator<<(std::ostream &out, const QuadraticHashtable<T> &t) {
     for (int i = 1; i <= t.capacity; i++) {
-      out << std::setw(5) << t.htable[i - 1].info;
-      if (i % 12 == 0) out << std::endl;
+      out << std::setw(10) << t.htable[i - 1].info;
+      if (i % 5 == 0) out << std::endl;
     }
 
     out << std::endl;
@@ -37,7 +37,7 @@ public:
   void add(T e) {
     if (full()) throw std::runtime_error("Table is full.");
 
-    int t = divideHF(e, capacity);
+    int t = foldingHF(e, capacity);
     if (htable[t].empty) {
       htable[t] = {e, false};
     }
@@ -54,7 +54,7 @@ public:
   bool remove(T e) {
     if (empty()) return false;
 
-    int t = divideHF(e, capacity);
+    int t = foldingHF(e, capacity);
     if (htable[t].info == e) {
       htable[t].empty = true;
       sz--;
@@ -76,7 +76,7 @@ public:
   }
 
   bool contains(T e) {
-    int t = divideHF(e, capacity);
+    int t = foldingHF(e, capacity);
     if (htable[t].info == e) {
       return true;
     } else {

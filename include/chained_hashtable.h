@@ -30,13 +30,13 @@ public:
         current = current->link;
       }
       out << std::endl;
-    } 
-    
+    }
+
     return out;
   }
 
   void add(T e){
-    int t = hashCode(e);
+    int t = foldingHF(e, capacity);
     if(htable[t]){
       auto node = new Node<T>(e);
       node->link = htable[t];
@@ -51,7 +51,7 @@ public:
   bool remove(T e){
     if(empty()) throw std::runtime_error("Table is empty.");
 
-    int t = hashCode(e);
+    int t = foldingHF(e, capacity);
     auto current = htable[t];
     Node<T>* beforeCurrent = nullptr;
     while(current){
@@ -72,7 +72,7 @@ public:
   }
 
   bool	contains(T e) {
-    int t = hashCode(e);
+    int t = foldingHF(e, capacity);
     auto current = htable[t];
     while(current){
       if(current->info == e){
@@ -88,14 +88,11 @@ public:
   int size() { return sz; }
 
   ~ChainedHashtable(){
-      delete[] htable;
+    delete[] htable;
   }
 protected:
   int sz, capacity;
   Node<T>** htable;
 
-  int hashCode(T e){
-    return e % capacity;
-  }
 };
 #endif

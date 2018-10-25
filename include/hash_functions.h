@@ -3,6 +3,7 @@
 
 #include <string>
 #include <sstream>
+#include <cstdlib>
 
 template <typename T>
 int divideHF(T e, int capacity){
@@ -12,21 +13,32 @@ int divideHF(T e, int capacity){
 //mid-square hash function
 template <typename T>
 int midSquareHF(T e, int capacity) {
-   int x = e * e;
-   std::string strx = std::to_string(x);
-   std::string mid = strx.substr(3, 4);
-   int y = std::stoi(mid);
+  double eNew = e;
+  double x = (eNew * eNew);
+  std::string xString = std::to_string(x);
 
-   return y % capacity;
+  while (xString.length() < 7){
+    xString.append(std::to_string (rand() % 10));
+  }
+
+  std::string mid = xString.substr(3, 3);
+  int y = std::stoi(mid);
+
+  return y % capacity;
 }
 
 //folding hash function
 template <typename T>
 int foldingHF(T e, int capacity) {
-  std::string x = std::to_string(e);
-  std::string first = x.substr(0, 2);
-  std::string second = x.substr(2, 2);
-  std::string third = x.substr(4, 2);
+  std::string eString = std::to_string(e);
+
+  while (eString.length() != 6){
+    eString.append(std::to_string (rand() % 10));
+  }
+
+  std::string first = eString.substr(0, 2);
+  std::string second = eString.substr(2, 2);
+  std::string third = eString.substr(4, 2);
   int total = std::stoi(first) + std::stoi(second) + std::stoi(third);
 
   return total % capacity;
@@ -36,17 +48,17 @@ int foldingHF(T e, int capacity) {
 template <typename T>
 int selectHF(T e, int capacity) {
   std::string key;
-  std::string stre = std::to_string (e);
+  std::string eString = std::to_string (e);
 
-  while (stre.length() < 6){
-    stre.append(std::to_string (rand() % 10));
+  while (eString.length() != 6){
+    eString.append(std::to_string (rand() % 10));
   }
 
   std::stringstream sin;
-  sin << stre.substr (1, 2);
-  sin << stre.substr (4, 1);
+  sin << eString.substr (1, 2);
+  sin << eString.substr (4, 1);
   sin >> key;
-  int y = std::stoi (key);
+  int y = std::stoi(key);
 
   return y % capacity;
 }
